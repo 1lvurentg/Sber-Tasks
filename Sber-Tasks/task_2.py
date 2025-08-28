@@ -4,15 +4,15 @@ app = Flask(__name__)
 
 
 tasks = []
-task_counter = 1
+task_counter = 1 
 
 
-@app.route('/tasks', methods=['GET'])
+@app.route('/tasks', methods=['GET']) # список всех задач
 def get_task():
     return jsonify(tasks),200
 
 
-@app.route('/tasks', methods=['POST'])
+@app.route('/tasks', methods=['POST']) # добавляет новую задачу в список
 def add_task():
     global task_counter
     
@@ -30,7 +30,7 @@ def add_task():
     return jsonify(new_task), 201
 
 
-@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+@app.route('/tasks/<int:task_id>', methods=['DELETE']) # удаляет задачу по её id
 def delete_task(task_id):
     global tasks
     task = next((t for t in tasks if t["id"] == task_id),None)
@@ -40,14 +40,6 @@ def delete_task(task_id):
     tasks = [t for t in tasks if t["id"] != task_id]
     
     return jsonify({"message": f"Задача {task_id} удалена"}), 200
-
-# @app.route('/', methods = ['POST'])
-# def webhook():
-#     incoming_msg = request.values.ge
-#     resp = MessagingResponse()
-#     msg = resp.message()
-
-
 
 
 if __name__ == "__main__":
